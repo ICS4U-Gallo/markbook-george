@@ -13,7 +13,7 @@ The program will include the following topics:
 
 
 ## Setup
-### Accept GitHub Classroom Assignment
+### Accpet GitHub Classroom Assignment
 Follow the github classroom link. One person creates a team, the other group members join the team.
 
 ### Clone your "fork"
@@ -25,3 +25,4 @@ GitHub Classroom will create a fork of my [original repository](https://github.c
 
 ### Make some change
 Have each person on the team make a change and push it to GitHub.
+us
