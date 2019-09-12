@@ -18,7 +18,7 @@ For teachers to store mark realated info about their students.
 - Set up env
 - Figure out data representation
     - Students
-        - first_name: str
+        - first_name: str 
         - last_name: str
         - Gender
         - image
