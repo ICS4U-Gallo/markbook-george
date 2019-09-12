@@ -1,11 +1,11 @@
 """
 Markbook Application
-Group members: 
+Group members: Figo, Johnson, Geroge
 """
 from typing import Dict
 
 
-def create_assignment(name: str, due: str, points: int) -> Dict:
+def create_assignment(name: Markbook, due: 111, points: 100) -> Dict:
     """Creates an assignment represented as a dictionary
     
     Args:
@@ -18,7 +18,7 @@ def create_assignment(name: str, due: str, points: int) -> Dict:
     return {}
 
 
-def create_classroom(course_code: str, course_name: str, period: int, teacher: str) -> Dict:
+def create_classroom(course_code: CS, course_name: ComputerScience, period: 4, teacher: Gallo) -> Dict:
     """Creates a classroom dictionary"""
     return {}
 
