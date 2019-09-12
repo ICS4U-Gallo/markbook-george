@@ -5,7 +5,7 @@ Group members:
 from typing import Dict
 
 
-def create_assignment(name: str, due: str, points: int) -> Dict:
+def create_assignment(name: Johnson, due: str, points: int) -> Dict:
     """Creates an assignment represented as a dictionary
     
     Args:
