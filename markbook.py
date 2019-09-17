@@ -5,11 +5,7 @@ Group members: Figo, Johnson, Geroge
 from typing import Dict
 
 
-<<<<<<< HEAD
-def create_assignment(name: Markbook, due: 111, points: 100) -> Dict:
-=======
-def create_assignment(name: Johnson, due: str, points: int) -> Dict:
->>>>>>> 91396d1f6dd2b072f6f3f6b9d2fef4e2a66ad844
+def create_assignment(name, due, points):
     """Creates an assignment represented as a dictionary
     
     Args:
@@ -19,14 +15,20 @@ def create_assignment(name: Johnson, due: str, points: int) -> Dict:
     Returns:
         Assignment as a dictionary.
     """
-    return {}
+    return {"name": name, "due": due, "points": points}
 
 
-def create_classroom(course_code: CS, course_name: ComputerScience, period: 4, teacher: Gallo) -> Dict:
+def create_classroom(course_code, course_name, period, teacher):
     """Creates a classroom dictionary"""
-    return {}
+    return {"CourseCode": couse_code, "CourseName": couse_name, "Period": period, "Teacher": teacher}
 
 
-def calculate_average_mark(student: Dict) -> float:
+def calculate_average_mark(student):
     """Calculates the average mark of a student"""
-    return 0
+    marks = strudent["marks"]
+    total = 0
+    ave = 0
+    for mark in strudent["marks"]:
+        total += int(mark)
+    ave = total/len(student["marks"])
+    return ave
