@@ -5,7 +5,7 @@ Group members:
 from typing import Dict
 
 
-def create_assignment(name: Johnson, due: str, points: int) -> Dict:
+def create_assignment(name: str, due: str, points: int) -> Dict:
     """Creates an assignment represented as a dictionary
     
     Args:
@@ -15,7 +15,7 @@ def create_assignment(name: Johnson, due: str, points: int) -> Dict:
     Returns:
         Assignment as a dictionary.
     """
-    return {}
+    return {"name": name, "due": due, "point": point}
 
 
 def create_classroom(course_code: str, course_name: str, period: int, teacher: str) -> Dict:
@@ -25,4 +25,8 @@ def create_classroom(course_code: str, course_name: str, period: int, teacher: s
 
 def calculate_average_mark(student: Dict) -> float:
     """Calculates the average mark of a student"""
+    marks = student["marks"]
+    total = 0
+    for mark in marks:
+        total
     return 0
