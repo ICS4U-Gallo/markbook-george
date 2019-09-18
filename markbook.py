@@ -5,7 +5,7 @@ Group members: Figo, Johnson, Geroge
 from typing import Dict
 
 
-def create_assignment(name: str, due: str, points: int):
+def create_assignment(name: str, due: str, points: int) -> Dict:
     """Creates an assignment represented as a dictionary
     
     Args:
@@ -25,7 +25,7 @@ def create_classroom(course_code, course_name, period, teacher):
 
 def calculate_average_mark(student):
     """Calculates the average mark of a student"""
-    marks = strudent["marks"]
+    marks = student["marks"]
     total = 0
     ave = 0
     for mark in strudent["marks"]:
