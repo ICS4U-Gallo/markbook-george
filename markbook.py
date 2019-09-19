@@ -66,3 +66,45 @@ def edit_student(student: Dict, **kwargs: Dict):
 
     pass
 
+while True: 
+    menu = "menu"
+    if menu == "menu":
+        print("Type 'assignment' to create an assignment")
+        print("Type 'classroom' to create a classroom")
+        print("Type 'mark' to calculate average mark")
+        print("Type 'Astudent' to add student to classroom")
+        print("Type 'Rstudent' to remove student from cmenulassroom")
+        print("Type 'Estudent' to edit student in classroom")
+        menu = input()
+
+    if menu == "assignment":
+        create_assignment()
+        print("Type 'menu' to get back to menu")
+        menu = input()
+
+    if menu == "classroom":
+        create_classroom()
+        print("Type 'menu' to get back to menu")
+        menu = input()
+
+    if menu == "mark":
+        calculate_average_mark()
+        print("Type 'menu' to get back to menu")
+        menu = input()
+
+    if menu == "Astudent":
+        add_student_to_classroom()
+        print("Type 'menu' to get back to menu")
+        menu = input()
+
+    if menu == "Rstudent":
+        remove_student_from_classroom()
+        print("Type 'menu' to get back to menu")
+        menu = input()
+
+    if menu == "Estudent":
+        edit_student()
+        print("Type 'menu' to get back to menu")
+        menu = input()
+
+
