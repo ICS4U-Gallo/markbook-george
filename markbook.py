@@ -20,7 +20,8 @@ def create_assignment(name: str, due: str, points: int) -> Dict:
 
 def create_classroom(course_code, course_name, period, teacher):
     """Creates a classroom dictionary"""
-    return {"CourseCode": couse_code, "CourseName": couse_name, "Period": period, "Teacher": teacher}
+    return {"CourseCode": couse_code, "CourseName": couse_name, "Period": 3, 
+    "Teacher": teacher, "student_list": []}
 
 
 def calculate_average_mark(student):
@@ -33,12 +34,14 @@ def calculate_average_mark(student):
     ave = total/len(student["marks"])
     return ave
 
+
 def add_student_to_classroom(student, classroom):
     """Adds student to a classroom
     Args:
         student: Student dict
         classroom: The classroom to add the student to
     """
+    classroom["student_list"].append(student)
     pass
 
 
@@ -48,6 +51,7 @@ def remove_student_from_classroom(student: Dict, classroom: Dict):
         student: The student to be removed
         classroom: the class from which the student will be removed.
     """
+    calssroom["student_list"].pop(index(student))
     pass
 
 
@@ -59,5 +63,6 @@ def edit_student(student: Dict, **kwargs: Dict):
             data that needs to be changed. Can come in the form
             of a dictionary.
     """
+
     pass
 
