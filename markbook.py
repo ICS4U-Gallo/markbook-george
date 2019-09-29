@@ -21,11 +21,18 @@ def create_assignment(name: str, due: str, points: int,course_code:int) -> Dict:
 def create_classroom():
     course_code=input("enter coursecode")
     course_name=input("enter course name")
+<<<<<<< HEAD
     period = int(input("enter period"))
     teacher = input("enter teacher")
     """Creates a classroom dictionary"""
     if input("are you sure? enter y or n y:yes n:no").equals("y"):
         write_to_classroom({"CourseCode": couse_code, "CourseName": couse_name, "Period": period,
+=======
+    #and so on
+    """Creates a classroom dictionary"""
+    if input("are you sure? enter y or n y:yes n:no").equals("y"):
+        write_to_classroom({"CourseCode": couse_code, "CourseName": couse_name, "Period": 3,
+>>>>>>> a35124c051077b9ece608d2838894f8b18b33731
 
             "Teacher": teacher, "student_list": [], "assignment_list": []})
 
@@ -55,9 +62,15 @@ def add_student_to_classroom():
     studen_id=input("enter student id")
     course_code=input("enter the course code")
     # get input for both arguments!!!
+<<<<<<< HEAD
     if input("are you sure? enter y or n y:yes n:no") == ("y"):
 
         write_to_course_studentlist(student_id, course_code)
+=======
+    if input("are you sure? enter y or n y:yes n:no").equals("y"):
+
+        write_to_course_studentlist(student_id:int, course_code:int)
+>>>>>>> a35124c051077b9ece608d2838894f8b18b33731
 
         pass
 
@@ -197,12 +210,15 @@ class Classroom:
 
 
 def student_info_create():
+<<<<<<< HEAD
+=======
 
-    st_firstname = input("enter the student first name")
-    st_lastname = input("enter the student last name")
-    st_id=input("enter the student id")
-    studentx = {"studentname": st_firstname, "student_lasyname": st_lastname, "studentID": st_id}
-    write_to_listAllStudents(studentx)
+    st_name = input("enter the student name")
+
+    st_id=input("enter the student id") #and so on
+
+    studentx = {"studentname": st_name, "student_lasyname": st_lname ,...}
+
 
 def write_to_listAllStudents(new_student:Dict):
     file_name=get_file_name()
@@ -215,6 +231,52 @@ def write_to_listAllStudents(new_student:Dict):
             json.dump(data, outfile)
     
 
+#question:how to specify which assignment is for what classroom
+
+def update_student_mark():
+    inp_number=input("enter the student name")
+    course_code=input()
+    assignment_name=
+    grade=input()
+    for classroom in class_list:
+        if class_list[classroom]["student_list"][st_number]==inp_number:
+            class_list[classroom]["student_list"]["assigment_list"]["assignment_name"]=grade
+
+>>>>>>> a35124c051077b9ece608d2838894f8b18b33731
+
+    st_firstname = input("enter the student first name")
+    st_lastname = input("enter the student last name")
+    st_id=input("enter the student id")
+    studentx = {"studentname": st_firstname, "student_lasyname": st_lastname, "studentID": st_id}
+    write_to_listAllStudents(studentx)
+
+<<<<<<< HEAD
+def write_to_listAllStudents(new_student:Dict):
+    file_name=get_file_name()
+    with open(file_name) as json_file:
+        data = json.load(json_file)
+        data["students"].append(new_student)
+        data["studentIDList"].append(new_student['student_id'])
+    nfile_name=getn_file_name()
+    with open(nfile_name, 'w') as outfile:
+            json.dump(data, outfile)
+    
+
+=======
+"student_list": []
+#save dictionaries and information into the json file
+
+def first_write_to_file(str filepath , studententery ,..):
+    if studententery notnull
+    write_to student
+
+    write_to_classroom()
+
+
+
+def write_to_class():
+    create_classroom()
+>>>>>>> a35124c051077b9ece608d2838894f8b18b33731
 
 def update_student_mark():
     inp_number=input("enter the student name")
