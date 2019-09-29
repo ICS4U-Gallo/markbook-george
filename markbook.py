@@ -18,12 +18,25 @@ def create_assignment(name: str, due: str, points: int,course_code:int) -> Dict:
     return {"name": name, "due": due, "points": points , "course_code":int}
 
 
-def create_classroom(course_code, course_name, period, teacher):
-
+def create_classroom():
+    course_code=input("enter coursecode")
+    course_name=input("enter course name")
+    #and so on
     """Creates a classroom dictionary"""
-    
-    return {"CourseCode": couse_code, "CourseName": couse_name, "Period": 3, 
-    "Teacher": teacher, "student_list": [],"assignment_list":[]}
+    if input("are you sure? enter y or n y:yes n:no").equals("y"):
+        write_to_classroom({"CourseCode": couse_code, "CourseName": couse_name, "Period": 3,
+
+            "Teacher": teacher, "student_list": [], "assignment_list": []})
+
+
+def write_to_classroom(new_classroom:Dict):
+    file_name=get_file_name()
+    with open(file_name) as json_file:
+        data = json.load(json_file)
+        data["classroom"].append(new_classroom)
+    nfile_name=getn_file_name()
+    with open(nfile_name, 'w') as outfile:
+            json.dump(data, outfile)
 
 
 def calculate_average_mark(student):
@@ -37,14 +50,28 @@ def calculate_average_mark(student):
     return ave
 
 
-def add_student_to_classroom(student, classroom):
-    """Adds student to a classroom
-    Args:
-        student: Student dict
-        classroom: The classroom to add the student to
-    """
-    classroom["student_list"].append(student)
-    pass
+def add_student_to_classroom():
+    studen_id=input("enter student id")
+    course_code=input("enter the course code")
+    # get input for both arguments!!!
+    if input("are you sure? enter y or n y:yes n:no").equals("y"):
+
+        write_to_course_studentlist(student_id:int, course_code:int)
+
+        pass
+
+def write_to_course_studentlist(reg_student_id ,course_code):
+    file_name=get_file_name()
+    with open(file_name) as json_file:
+        data = json.load(json_file)
+        if data["studentIDList"].contains(reg_student):
+            data["classrooms"][reg_class_room]["courseStudentIDList"].append(reg_student)
+            for student in data["student"]:
+                if data["students"]["studentID"]==reg_student_id:
+                    data["students"]["studentID"]["courses"].append(course_code)
+    nfile_name=getn_file_name()
+    with open(nfile_name, 'w') as outfile:
+            json.dump(data, outfile)
 
 
 def remove_student_from_classroom(student: Dict, classroom: Dict):
@@ -165,42 +192,50 @@ class Classroom:
         self.student_list = student_list
 
 
-def student_info_create(){
-    st_listofcourse=
-    st_name=input("enter the student name")
-    ...
-    studentx={"studentname":st_name , "student_lasyname":st_lname }
-    for coursse in st_list..:
-        for coures in classrooms
-            add_student_to_classroom(studentx, classroom):
+def student_info_create():
+
+    st_name = input("enter the student name")
+
+    st_id=input("enter the student id") #and so on
+
+    studentx = {"studentname": st_name, "student_lasyname": st_lname ,...}
+
+
+def write_to_listAllStudents(new_student:Dict):
+    file_name=get_file_name()
+    with open(file_name) as json_file:
+        data = json.load(json_file)
+        data["students"].append(new_student)
+        data["studentIDList"].append(new_student['student_id'])
+    nfile_name=getn_file_name()
+    with open(nfile_name, 'w') as outfile:
+            json.dump(data, outfile)
     
 
-}
 #question:how to specify which assignment is for what classroom
 
 def update_student_mark():
-inp_number=input("enter the student name")
-course_code=input()
-assignment_name=
-grade=input()
-for classroom in class_list:{
-    if class_list[classroom]["student_list"][st_number]==inp_number:
-        class_list[classroom]["student_list"]["assigment_list"]["assignment_name"]=grade
+    inp_number=input("enter the student name")
+    course_code=input()
+    assignment_name=
+    grade=input()
+    for classroom in class_list:
+        if class_list[classroom]["student_list"][st_number]==inp_number:
+            class_list[classroom]["student_list"]["assigment_list"]["assignment_name"]=grade
 
-}
 
 
 "student_list": []
 #save dictionaries and information into the json file
 
-def first_write_to_file(str filepath , studententery ,..):{
+def first_write_to_file(str filepath , studententery ,..):
     if studententery notnull
     write_to student
 
     write_to_classroom()
 
 
-}
+
 def write_to_class():
     create_classroom()
 
