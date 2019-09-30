@@ -87,15 +87,16 @@ def write_to_classroom(course_code, new_classroom: Dict):
         json.dump(data, outfile)
 
 
-def calculate_average_mark(student):
+def calculate_average_mark():
     """Calculates the average mark of a student"""
-    marks = student["marks"]
-    total = 0
-    ave = 0
-    for mark in strudent["marks"]:
-        total += int(mark)
-    ave = total / len(student["marks"])
-    return ave
+    st_number = input("Please enter the student number: ")
+    with open("save_information.json", 'r') as json_file:
+        data = json.load(json_file)
+        ave = 0
+        for marks in data["student"][st_number]["Assignment List"]:
+            ave += marks
+        ave = ave/len(data["student"][st_number]["Assignment List"])
+    print(ave)
 
 
 def add_student_to_classroom():
@@ -112,8 +113,11 @@ def write_to_course_studentlist(reg_student_id, course_code):
         for value in data.values():
             for key in value.keys():
                 if key == reg_student_id:
-                    data["classroom"][course_code]["student_list"].append(
-                        reg_student_id)
+                    while True:
+                        try: data["classroom"][course_code]["student_list"]    .append(reg_student_id)
+                        except:
+                            print("OPPS! Looks like you enter something wrong!")
+                            break
             #for student in data["student"]:
             #if data["students"]["studentID"]==reg_student_id:
             #data["students"]["studentID"]["courses"].append(course_code)
@@ -214,7 +218,8 @@ def main():
               "[4]-add student to classroom\n"
               "[5]-remove a student from a class\n"
               "[6]-edit a student information\n"
-              "[7]-update a student's mark")
+              "[7]-update a student's mark\n"
+              "[8]-calculate a student's average mark\n")
         user = int(input("Please enter a number from above\n-> "))
 
         if user == 0:
@@ -240,5 +245,8 @@ def main():
 
         if user == 7:
             update_student_mark()
+
+        if user == 8:
+            calculate_average_mark()
 
 main()
