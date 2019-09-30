@@ -190,22 +190,23 @@ def main():
             "[1]-create assignemt\n"
             "[2]-calculate average mark\n"
             "[3]-create student\n"
-            "[4]-add student to classroom"
+            "[4]-add student to classroom\n"
         )
-        user = int(input("\nPlease enter a number from above"))
+        user = int(input("Please enter a number from above"))
 
-            if user == 0:
-                create_classroom()
+        if user == 0:
+            create_classroom()
 
-            if user == 1:
-                create_assignment()
+        if user == 1:
+            create_assignment()
 
-            if user == 2:
-                calculate_average_mark()
+        if user == 2:
+            calculate_average_mark()
 
-            if user == 3:
-                student_info_create()
+        if user == 3:
+            student_info_create()
 
-            if add_student_to_classroom()
+        if user == 4:
+            add_student_to_classroom()
 
 main()
