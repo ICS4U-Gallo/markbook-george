@@ -10,12 +10,16 @@ def student_info_create():
     st_lastname = input("Please enter the student last name: ")
     grade = input("Please enter the student grade: ")
     gender = input("Please enter the student gender: ")
+    email = input("Please enter the student email: ")
+    comments = input("Please write down your comments to this student: ")
     st_number = input("Please enter the student number: ")
     studentx = {
         "Student Firstname": st_firstname,
         "Student Lastname": st_lastname,
         "Grade": grade,
         "Gender": gender,
+        "Email": email,
+        "Comments": comments,
         "Assignment List": []
     }
     if input("Are you sure? enter 'Y' for YES and 'N' for NO: ").upper() == "Y":
@@ -57,6 +61,7 @@ def write_to_assignment(course_code, new_assignment: dict):
     with open("save_information.json", 'r') as json_file:
         data = json.load(json_file)
         data["assignment"][course_code] = (new_assignment)
+        data["classroom"][course_code]["Assignment List"].append(new_assignment)
     with open("save_information.json", 'w') as outfile:
         json.dump(data, outfile)
     print("\nSuccessful Created\n")
@@ -70,10 +75,11 @@ def create_classroom():
     """Creates a classroom dictionary"""
     if input("Are you sure? enter 'Y' for YES and 'N' for NO: ").upper() == "Y":
         write_to_classroom(course_code, {
-            "CourseName": course_name,
+            "Course Name": course_name,
             "Period": period,
             "Teacher": teacher,
-            "student_list": []
+            "Student Number List": [],
+            "Assignment List": []
         })
 
 
@@ -116,7 +122,7 @@ def write_to_course_studentlist(reg_student_id, course_code):
         for value in data.values():
             for key in value.keys():
                 if key == reg_student_id:
-                    try: data["classroom"][course_code]["student_list"]    .append(reg_student_id)
+                    try: data["classroom"][course_code]["Student Number List"]    .append(reg_student_id)
                     except:
                         print("OPPS! Looks like you enter something wrong!")
                         break
@@ -130,7 +136,7 @@ def remove_student_from_classroom():
     with open("save_information.json", "r") as json_file:
         data = json.load(json_file)
         if input("Are you sure? enter 'Y' for YES and 'N' for NO: ").upper() == "Y":
-            data["classroom"][course_code]["student_list"].remove(st_number)
+            data["classroom"][course_code]["Student Number List"].remove(st_number)
     with open("save_information.json", 'w') as outfile:
         json.dump(data, outfile)
     pass
@@ -142,11 +148,15 @@ def edit_student():
     st_lastname = input("Please enter the student last name: ")
     grade = input("Please enter the student grade: ")
     gender = input("Please enter the student gender: ")
+    email = input("Please enter the student email: ")
+    comments = input("Please write down your comments to this student: ")
     studentx = {
         "Student Firstname": st_firstname,
         "Student Lastname": st_lastname,
         "Grade": grade,
         "Gender": gender,
+        "Email": email,
+        "Comments": comments,
         "Assignment List": []
     }
 
@@ -186,7 +196,6 @@ def update_student_mark():
                 break
     with open("save_information.json", 'w') as outfile:
         json.dump(data, outfile) 
-
 
 def reset_everything():
     decide = input(
@@ -290,9 +299,9 @@ def main():
     print("\nWELCOME! TO OUR MARKBOOK!")
     while True:
         print(
-            "\n[1]-Management Classroom\n"
-            "[2]-Management Assignment\n"
-            "[3]-Management Student\n"
+            "\n[1]-Manage Classroom\n"
+            "[2]-Manage Assignment\n"
+            "[3]-Manage Student\n"
             "[4]-RESET EVERYTHING!\n"
         )
         try:
