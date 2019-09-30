@@ -183,7 +183,7 @@ def update_student_mark():
 
 def main():
     global user
-    print("\nWelcome! to our mark book!")
+    print("\nWelcome! to our markbook!")
     while True:
         print(
             "[0]-create a calssroom\n"
