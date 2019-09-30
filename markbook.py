@@ -4,7 +4,7 @@ Group members: Figo, Johnson
 """
 from typing import Dict
 
-
+user = 0
 def create_assignment(name: str, due: str, points: int,course_code:int) -> Dict:
     """Creates an assignment represented as a dictionary
     
@@ -24,13 +24,8 @@ def create_classroom():
     period = int(input("enter period"))
     teacher = input("enter teacher")
     """Creates a classroom dictionary"""
-<<<<<<< HEAD
-    if input("are you sure? enter y or n y:yes n:no") == ("y"):
-        write_to_classroom({"CourseCode": couse_code, "CourseName": couse_name, "Period": 3,
-=======
     if input("are you sure? enter y or n y:yes n:no").equals("y"):
         write_to_classroom({"CourseCode": couse_code, "CourseName": couse_name, "Period": period,
->>>>>>> 9e0e18eea5f091eda075403ae0cda38fc4bc2231
 
             "Teacher": teacher, "student_list": [], "assignment_list": []})
 
@@ -59,24 +54,16 @@ def calculate_average_mark(student):
 def add_student_to_classroom():
     studen_id=input("enter student id")
     course_code=input("enter the course code")
-<<<<<<< HEAD
-    # get input for both arguments!!!
-    if input("are you sure? enter y or n y:yes n:no") == ("y"):
-
-        write_to_course_studentlist(student_id:int, course_code:int)
-=======
     if input("are you sure? enter y or n y:yes n:no") == ("y"):
         write_to_course_studentlist(student_id, course_code)
->>>>>>> 9e0e18eea5f091eda075403ae0cda38fc4bc2231
 
-    else:
         pass
 
 def write_to_course_studentlist(reg_student_id ,course_code):
-    file_name= get_file_name()
+    file_name=get_file_name()
     with open(file_name) as json_file:
         data = json.load(json_file)
-        if data["studentIDList"] in reg_student:
+        if data["studentIDList"].contains(reg_student):
             data["classrooms"][reg_class_room]["courseStudentIDList"].append(reg_student)
             for student in data["student"]:
                 if data["students"]["studentID"]==reg_student_id:
@@ -106,8 +93,6 @@ def edit_student(student: Dict, **kwargs: Dict):
     """
 
     pass
-
-
 
 
 
@@ -195,3 +180,32 @@ def update_student_mark():
             class_list[classroom]["student_list"]["assigment_list"]["assignment_name"]=grade
 
 
+
+def main():
+    global user
+    print("\nWelcome! to our mark book!")
+    while True:
+        print(
+            "[0]-create a calssroom\n"
+            "[1]-create assignemt\n"
+            "[2]-calculate average mark\n"
+            "[3]-create student\n"
+            "[4]-add student to classroom"
+        )
+        user = int(input("\nPlease enter a number from above"))
+
+            if user == 0:
+                create_classroom()
+
+            if user == 1:
+                create_assignment()
+
+            if user == 2:
+                calculate_average_mark()
+
+            if user == 3:
+                student_info_create()
+
+            if add_student_to_classroom()
+
+main()
