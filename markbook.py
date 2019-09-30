@@ -18,7 +18,7 @@ def student_info_create():
         "Gender": gender,
         "Assignment List": []
     }
-    if input("are you sure? enter y or n y:yes n:no: ") == "y":
+    if input("Are you sure? enter 'Y' for YES and 'N' for NO: ").upper() == "Y":
         write_to_student(st_number, studentx)
 
 
@@ -45,13 +45,11 @@ def create_assignment() -> Dict:
     name = input("Please enter the assignment name: ")
     due = input("Please enter the due date: ")
     points = input("Please enter what the assignment is out of: ")
-    course_code = input("Please enter the course code: ")
-    if input("are you sure? enter y or n y:yes n:no: ") == "y":
+    if input("Are you sure? enter 'Y' for YES and 'N' for NO: ").upper() == "Y":
         write_to_assignment(course_code, {
             "name": name,
             "due": due,
             "points": points,
-            "course_code": course_code
         })
 
 
@@ -70,7 +68,7 @@ def create_classroom():
     period = int(input("enter period: "))
     teacher = input("enter teacher: ")
     """Creates a classroom dictionary"""
-    if input("are you sure? enter y or n y:yes n:no: ") == "y":
+    if input("Are you sure? enter 'Y' for YES and 'N' for NO: ").upper() == "Y":
         write_to_classroom(course_code, {
             "CourseName": course_name,
             "Period": period,
@@ -107,7 +105,7 @@ def calculate_average_mark():
 def add_student_to_classroom():
     student_number = input("enter student number: ")
     course_code = input("enter the course code: ")
-    if input("are you sure? enter y or n y:yes n:no: ") == ("y"):
+    if input("Are you sure? enter 'Y' for YES and 'N' for NO: ").upper() == "Y":
         write_to_course_studentlist(student_number, course_code)
         pass
 
@@ -131,7 +129,7 @@ def remove_student_from_classroom():
     course_code = input("Please enter the course code that you want to remove the student from: ")
     with open("save_information.json", "r") as json_file:
         data = json.load(json_file)
-        if input("are you sure? enter y or n y:yes n:no: ") == ("y"):
+        if input("Are you sure? enter 'Y' for YES and 'N' for NO: ").upper() == "Y":
             data["classroom"][course_code]["student_list"].remove(st_number)
     with open("save_information.json", 'w') as outfile:
         json.dump(data, outfile)
@@ -208,9 +206,85 @@ def reset_everything():
         json.dump(data, outfile) 
     print("\nSuccessful Reset!\n")
 
+def view_student():
+    st_number = input(
+        "Please enter the student's number you want to viewed: \n"
+        "Or enter 'All' to view all student's information: "
+    ).upper()
+    with open("save_information.json", "r") as json_file:
+        data = json.load(json_file)
+    if st_number == "ALL":
+        for k,value in data.items():
+            if k == "student":
+                for key, more_value in value.items():
+                    print(
+                        "\nStudent Number: " + key
+                    )
+                    for more_key, another_value in more_value.items():
+                      print(str(more_key) + ": " + str(another_value))
+        else:
+            for first_v in data.values():
+                for first_k, second_v in first_v.items():
+                    if first_k == st_number:
+                        print(
+                        "\nStudent Number: " + first_k
+                        )
+                        for second_k, third_v in second_v.items():
+                            print(str(second_k) + ": " + str(third_v))
+
+def view_classroom():
+    course_code = input(
+        "Please enter the course's code you want to viewed: \n"
+        "Or enter 'All' to view all courses' information: "
+    ).upper()
+    with open("save_information.json", "r") as json_file:
+        data = json.load(json_file)
+    if course_code == "ALL":
+        for k, value in data.items():
+            if k == "classroom":
+                for key, more_value in value.items():
+                    print(
+                        "\nCourse Code: " + key
+                    )
+                    for more_key, another_value in more_value.items():
+                        print(str(more_key) + ": " + str(another_value))
+        else:
+            for first_v in data.values():
+                for first_k, second_v in first_v.items():
+                    if first_k == course_code:
+                        print(
+                        "\nCourse Code: " + first_k
+                    )
+                        for second_k, third_v in second_v.items():
+                            print(str(second_k) + ": " + str(third_v))
 
 
-    
+def view_assignment():
+    course_code = input(
+        "Please enter the course's code you want to viewed: \n"
+        "Or enter 'All' to view all assignments' information: "
+    ).upper()
+    with open("save_information.json", "r") as json_file:
+        data = json.load(json_file)
+    if course_code == "ALL":
+        for k, value in data.items():
+            if k == "assignment":
+                for key, more_value in value.items():
+                    print(
+                        "\nCourse Code: " + key
+                    )
+                    for more_key, another_value in more_value.items():
+                        print(str(more_key) + ": " + str(another_value))
+        else:
+            for first_v in data.values():
+                for first_k, second_v in first_v.items():
+                    if first_k == course_code:
+                        print(
+                        "\nCourse Code: " + first_k
+                    )
+                        for second_k, third_v in second_v.items():
+                            print(str(second_k) + ": " + str(third_v))
+
 
 def main():
     print("\nWELCOME! TO OUR MARKBOOK!")
@@ -231,6 +305,7 @@ def main():
                 "\n[1]-Create a Classroom\n"
                 "[2]-Add a Student to a Classroom\n"
                 "[3]-Remove a Student from a Classroom\n"
+                "[4]-View Classroom's Information\n"
             )
             try:
                 cuser = int(input("Please enter a number from above\n->> "))
@@ -243,10 +318,13 @@ def main():
                 add_student_to_classroom()
             if cuser == 3:
                 remove_student_from_classroom()
+            if cuser == 4:
+                view_classroom()
 
         if user == 2:
             print(
                 "\n[1]-Create an Assignment\n"
+                "[2]-View Assignment's Information"
             )
             try:
                 auser = int(input("Please enter a number from above\n->> "))
@@ -255,6 +333,8 @@ def main():
 
             if auser == 1:
                 create_assignment()
+            if auser == 2:
+                view_assignment()
         
         if user == 3:
             print(
@@ -264,6 +344,7 @@ def main():
                 "[4]-Calculate a Student's Average Mark\n"
                 "[5]-Edit a Student's Information\n"
                 "[6]-Update a Student's Mark\n"
+                "[7]-View Student's Information\n"
             )
             try:
                 suer = int(input("Please enter a number from above\n->> "))
@@ -282,6 +363,8 @@ def main():
                 edit_student()
             if suer == 6:
                 update_student_mark()
+            if suer == 7:
+                view_student()
 
         if user == 4:
             reset_everything()
