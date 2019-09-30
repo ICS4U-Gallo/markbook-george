@@ -23,7 +23,7 @@ def create_classroom():
     course_name=input("enter course name")
     #and so on
     """Creates a classroom dictionary"""
-    if input("are you sure? enter y or n y:yes n:no").equals("y"):
+    if input("are you sure? enter y or n y:yes n:no") == ("y"):
         write_to_classroom({"CourseCode": couse_code, "CourseName": couse_name, "Period": 3,
 
             "Teacher": teacher, "student_list": [], "assignment_list": []})
@@ -54,17 +54,18 @@ def add_student_to_classroom():
     studen_id=input("enter student id")
     course_code=input("enter the course code")
     # get input for both arguments!!!
-    if input("are you sure? enter y or n y:yes n:no").equals("y"):
+    if input("are you sure? enter y or n y:yes n:no") == ("y"):
 
         write_to_course_studentlist(student_id:int, course_code:int)
 
+    else:
         pass
 
 def write_to_course_studentlist(reg_student_id ,course_code):
-    file_name=get_file_name()
+    file_name= get_file_name()
     with open(file_name) as json_file:
         data = json.load(json_file)
-        if data["studentIDList"].contains(reg_student):
+        if data["studentIDList"] in reg_student:
             data["classrooms"][reg_class_room]["courseStudentIDList"].append(reg_student)
             for student in data["student"]:
                 if data["students"]["studentID"]==reg_student_id:
