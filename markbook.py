@@ -3,9 +3,35 @@ Markbook Application
 Group members: Figo, Johnson
 """
 from typing import Dict
+import json
 
-user = 0
-def create_assignment(name: str, due: str, points: int,course_code:int) -> Dict:
+def student_info_create():
+    st_firstname = input("Please enter the student first name: ")
+    st_lastname = input("Please enter the student last name: ")
+    grade = input("Please enter the student grade: ")
+    gender = input("Please enter the student gender: ")
+    st_number = input("Please enter the student number: ")
+    studentx = {
+        "Student Firstname": st_firstname,
+        "Student Lastname": st_lastname,
+        "Grade": grade,
+        "Gender": gender,
+        "Assignment List": []
+    }
+    if input("are you sure? enter y or n y:yes n:no: ") == "y":
+        write_to_student(st_number, studentx)
+
+
+def write_to_student(st_number, new_student: dict):
+    with open("save_information.json", 'r') as json_file:
+        data = json.load(json_file)
+        data["student"][st_number] = new_student
+    with open("save_information.json", 'w') as outfile:
+        json.dump(data, outfile)
+    print("\nSuccessful Created\n")
+
+
+def create_assignment() -> Dict:
     """Creates an assignment represented as a dictionary
     
     Args:
@@ -15,198 +41,249 @@ def create_assignment(name: str, due: str, points: int,course_code:int) -> Dict:
     Returns:
         Assignment as a dictionary.
     """
-    return {"name": name, "due": due, "points": points , "course_code":int}
+    course_code = input("Please enter the course code of this assignment: ")
+    name = input("Please enter the assignment name: ")
+    due = input("Please enter the due date: ")
+    points = input("Please enter what the assignment is out of: ")
+    course_code = input("Please enter the course code: ")
+    if input("are you sure? enter y or n y:yes n:no: ") == "y":
+        write_to_assignment(course_code, {
+            "name": name,
+            "due": due,
+            "points": points,
+            "course_code": course_code
+        })
+
+
+def write_to_assignment(course_code, new_assignment: dict):
+    with open("save_information.json", 'r') as json_file:
+        data = json.load(json_file)
+        data["assignment"][course_code] = (new_assignment)
+    with open("save_information.json", 'w') as outfile:
+        json.dump(data, outfile)
+    print("\nSuccessful Created\n")
 
 
 def create_classroom():
-    course_code=input("enter coursecode")
-    course_name=input("enter course name")
-    period = int(input("enter period"))
-    teacher = input("enter teacher")
+    course_code = input("enter coursecode: ")
+    course_name = input("enter course name: ")
+    period = int(input("enter period: "))
+    teacher = input("enter teacher: ")
     """Creates a classroom dictionary"""
-    if input("are you sure? enter y or n y:yes n:no").equals("y"):
-        write_to_classroom({"CourseCode": couse_code, "CourseName": couse_name, "Period": period,
+    if input("are you sure? enter y or n y:yes n:no: ") == "y":
+        write_to_classroom(course_code, {
+            "CourseName": course_name,
+            "Period": period,
+            "Teacher": teacher,
+            "student_list": []
+        })
 
-            "Teacher": teacher, "student_list": [], "assignment_list": []})
 
-
-def write_to_classroom(new_classroom:Dict):
-    file_name=get_file_name()
-    with open(file_name) as json_file:
+def write_to_classroom(course_code, new_classroom: Dict):
+    with open("save_information.json", 'r') as json_file:
         data = json.load(json_file)
-        data["classroom"].append(new_classroom)
-    nfile_name=getn_file_name()
-    with open(nfile_name, 'w') as outfile:
-            json.dump(data, outfile)
+        data["classroom"][course_code] = new_classroom
+    with open("save_information.json", 'w') as outfile:
+        json.dump(data, outfile)
+    print("\nSuccessful Created\n")
 
 
-def calculate_average_mark(student):
+def calculate_average_mark():
     """Calculates the average mark of a student"""
-    marks = student["marks"]
-    total = 0
-    ave = 0
-    for mark in strudent["marks"]:
-        total += int(mark)
-    ave = total/len(student["marks"])
-    return ave
+    st_number = input("Please enter the student number: ")
+    with open("save_information.json", 'r') as json_file:
+        data = json.load(json_file)
+        ave = 0
+        for marks in data["student"][st_number]["Assignment List"]:
+            ave += marks
+        ave = ave/len(data["student"][st_number]["Assignment List"])
+    print(
+        "The Student with the Student Code: "
+        + str(st_number) +"\n"
+        "Has a average mark with: " + str(ave)
+    )
 
 
 def add_student_to_classroom():
-    studen_id=input("enter student id")
-    course_code=input("enter the course code")
-    if input("are you sure? enter y or n y:yes n:no") == ("y"):
-        write_to_course_studentlist(student_id, course_code)
-
+    student_number = input("enter student number: ")
+    course_code = input("enter the course code: ")
+    if input("are you sure? enter y or n y:yes n:no: ") == ("y"):
+        write_to_course_studentlist(student_number, course_code)
         pass
 
-def write_to_course_studentlist(reg_student_id ,course_code):
-    file_name=get_file_name()
-    with open(file_name) as json_file:
+
+def write_to_course_studentlist(reg_student_id, course_code):
+    with open("save_information.json", "r") as json_file:
         data = json.load(json_file)
-        if data["studentIDList"].contains(reg_student):
-            data["classrooms"][reg_class_room]["courseStudentIDList"].append(reg_student)
-            for student in data["student"]:
-                if data["students"]["studentID"]==reg_student_id:
-                    data["students"]["studentID"]["courses"].append(course_code)
-    nfile_name=getn_file_name()
-    with open(nfile_name, 'w') as outfile:
-            json.dump(data, outfile)
+        for value in data.values():
+            for key in value.keys():
+                if key == reg_student_id:
+                    try: data["classroom"][course_code]["student_list"]    .append(reg_student_id)
+                    except:
+                        print("OPPS! Looks like you enter something wrong!")
+                        break
+    with open("save_information.json", 'w') as outfile:
+        json.dump(data, outfile)
 
 
-def remove_student_from_classroom(student: Dict, classroom: Dict):
-    """Removes student from classroom
-    Args:
-        student: The student to be removed
-        classroom: the class from which the student will be removed.
-    """
-    calssroom["student_list"].pop(index(student))
+def remove_student_from_classroom():
+    st_number = input("Please enter the student's code you want to delete: ")
+    course_code = input("Please enter the course code that you want to remove the student from: ")
+    with open("save_information.json", "r") as json_file:
+        data = json.load(json_file)
+        if input("are you sure? enter y or n y:yes n:no: ") == ("y"):
+            data["classroom"][course_code]["student_list"].remove(st_number)
+    with open("save_information.json", 'w') as outfile:
+        json.dump(data, outfile)
     pass
 
 
-def edit_student(student: Dict, **kwargs: Dict):
-    """Edits the student's info with the provided key/value pairs
-    Args:
-        student: The student whose data needs to be udated.
-        **kwargs: KeyWordARGumentS. The key/value pairs of the
-            data that needs to be changed. Can come in the form
-            of a dictionary.
-    """
+def edit_student():
+    st_number = input("Please enter the student's number you want to edit with: ")
+    st_firstname = input("Please enter the student first name: ")
+    st_lastname = input("Please enter the student last name: ")
+    grade = input("Please enter the student grade: ")
+    gender = input("Please enter the student gender: ")
+    studentx = {
+        "Student Firstname": st_firstname,
+        "Student Lastname": st_lastname,
+        "Grade": grade,
+        "Gender": gender,
+        "Assignment List": []
+    }
+
+    studenty = {
+        "Student Firstname": st_firstname,
+        "Student Lastname": st_lastname,
+        "Grade": grade,
+        "Gender": gender,
+    }
+    with open("save_information.json", "r") as json_file:
+        data = json.load(json_file)
+        for value in data.values():
+            for key in value.keys():
+                if key == st_number:
+                    if input("Do you want to reset the Assignment of this student as well? 'Y' for Yes and 'N' for 'No'").upper() == ("Y"):
+                        data["student"][st_number].update(studentx)
+                    else:
+                        data["student"][st_number].update(studenty)
+    with open("save_information.json", 'w') as outfile:
+        json.dump(data, outfile) 
 
     pass
-
-
-
-
-class Student:
-    def __init__(self,st_name,st_lastname, gender, image, st_number, email, assignment):
-        self.st_name = st_name
-        self.st_lstname = st_lastname
-        self.gender = gender
-        self.image = image
-        self.st_number = st.st_number
-        self.email = email
-        self.assignment = assignment
-
-    def get_name(self ,name):
-        return(st_name)
-
-    def get_lastname(self, lastname):
-        return(st_lastname)
-
-    def get_gender(self, gender):
-        return(gender)
-
-    def get_image(self, image):
-        return(image)
-
-    def get_number(self, number):
-        return(st_number)
-
-    def get_email(self, email):
-        return(email)
-
-    def update_st(self,st_name ,st_lastname, gender, image, st_number, email, assignment):
-        self.st_name = st_name
-        self.st_lstname = st_lastname
-        self.gender = gender
-        self.image = image
-        self.st_number = st.st_number
-        self.email = email
-        self.assignment = assignment
-
-
-
-
-    def save_grade(self, assignment_name , st_grade):
-        self.assignment_name = assignment_name
-        self.grade = st_grade
-
-
-class Classroom:
-    def __init__(self, course_code, teacher_name, period, student_list):
-        self.course_code = course_code
-        self.teacher_name = teacher_name
-        self.period = period
-        self.student_list = student_list
-
-
-def student_info_create():
-
-    st_firstname = input("enter the student first name")
-    st_lastname = input("enter the student last name")
-    st_id=input("enter the student id")
-    studentx = {"studentname": st_firstname, "student_lasyname": st_lastname, "studentID": st_id}
-    write_to_listAllStudents(studentx)
-
-def write_to_listAllStudents(new_student:Dict):
-    file_name=get_file_name()
-    with open(file_name) as json_file:
-        data = json.load(json_file)
-        data["students"].append(new_student)
-        data["studentIDList"].append(new_student['student_id'])
-    nfile_name=getn_file_name()
-    with open(nfile_name, 'w') as outfile:
-            json.dump(data, outfile)
-    
 
 
 def update_student_mark():
-    inp_number=input("enter the student name")
-    course_code=input("enter the course code")
-    assignment_name= ("enter the assignment name")
-    grade=input("enter the grade")
-    for classroom in class_list:
-        if class_list[classroom]["student_list"][st_number]==inp_number:
-            class_list[classroom]["student_list"]["assigment_list"]["assignment_name"]=grade
+    st_number = input("Please enter the student number: ")
+    with open("save_information.json", "r") as json_file:
+        data = json.load(json_file)
+        while True:
+            try:
+                st_mark = float(input("Please enter the student's mark: "))
+            except:
+              print("OOPs! Please enter a number\n")
+            data["student"][st_number]["Assignment List"].append(st_mark)
+            decide = input("Enter 'P' to stop\nPress SPACE to coutinue").upper()
+            if decide == "P":
+                break
+    with open("save_information.json", 'w') as outfile:
+        json.dump(data, outfile) 
 
 
+def reset_everything():
+    decide = input(
+        "Are you sure you want to DELETE everything you saved?\n"
+        "Enter 'YES' properly to confirm your choice\n"
+        "Enter 'No' to cancle this process: "
+    ).upper()
+    with open("save_information.json", "r") as json_file:
+        data = json.load(json_file)
+        if decide == "YES":
+            data = {
+                "student": {},
+                "classroom": {},
+                "assignment": {}
+            }
+    with open("save_information.json", 'w') as outfile:
+        json.dump(data, outfile) 
+    print("\nSuccessful Reset!\n")
+
+
+
+    
 
 def main():
-    global user
-    print("\nWelcome! to our markbook!")
+    print("\nWELCOME! TO OUR MARKBOOK!")
     while True:
         print(
-            "[0]-create a calssroom\n"
-            "[1]-create assignemt\n"
-            "[2]-calculate average mark\n"
-            "[3]-create student\n"
-            "[4]-add student to classroom\n"
+            "\n[1]-Management Classroom\n"
+            "[2]-Management Assignment\n"
+            "[3]-Management Student\n"
+            "[4]-RESET EVERYTHING!\n"
         )
-        user = int(input("Please enter a number from above"))
-
-        if user == 0:
-            create_classroom()
+        try:
+            user = int(input("Please enter a number from above\n->> "))
+        except:
+            print("Please enter an integer number from above")
 
         if user == 1:
-            create_assignment()
+            print(
+                "\n[1]-Create a Classroom\n"
+                "[2]-Add a Student to a Classroom\n"
+                "[3]-Remove a Student from a Classroom\n"
+            )
+            try:
+                cuser = int(input("Please enter a number from above\n->> "))
+            except:
+                print("Please enter an integer number from above")
+
+            if cuser == 1:
+                create_classroom()
+            if cuser == 2:
+                add_student_to_classroom()
+            if cuser == 3:
+                remove_student_from_classroom()
 
         if user == 2:
-            calculate_average_mark()
+            print(
+                "\n[1]-Create an Assignment\n"
+            )
+            try:
+                auser = int(input("Please enter a number from above\n->> "))
+            except:
+                print("Please enter an integer number from above")
 
+            if auser == 1:
+                create_assignment()
+        
         if user == 3:
-            student_info_create()
+            print(
+                "\n[1]-Create a Student\n"
+                "[2]-Add a Student to a Classroom\n"
+                "[3]-Remove a Student from a Classroom\n"
+                "[4]-Calculate a Student's Average Mark\n"
+                "[5]-Edit a Student's Information\n"
+                "[6]-Update a Student's Mark\n"
+            )
+            try:
+                suer = int(input("Please enter a number from above\n->> "))
+            except:
+                print("Please enter an integer number from above")
+
+            if suer == 1:
+                student_info_create()
+            if suer == 2:
+                add_student_to_classroom()
+            if suer == 3:
+                remove_student_from_classroom()
+            if suer == 4:
+                calculate_average_mark()
+            if suer == 5:
+                edit_student()
+            if suer == 6:
+                update_student_mark()
 
         if user == 4:
-            add_student_to_classroom()
+            reset_everything()
 
 main()
