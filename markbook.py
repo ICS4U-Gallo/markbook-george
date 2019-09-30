@@ -10,10 +10,15 @@ user = 0
 def student_info_create():
     st_firstname = input("Please enter the student first name: ")
     st_lastname = input("Please enter the student last name: ")
+    grade = input("Please enter the student grade: ")
+    gender = input("Please enter the student gender: ")
     st_number = input("Please enter the student number: ")
     studentx = {
         "Student Firstname": st_firstname,
         "Student Lastname": st_lastname,
+        "Grade": grade,
+        "Gender": gender,
+        "Assignment List": []
     }
     if input("are you sure? enter y or n y:yes n:no: ") == "y":
         write_to_student(st_number, studentx)
@@ -128,6 +133,8 @@ def remove_student_from_classroom():
         data = json.load(json_file)
         if input("are you sure? enter y or n y:yes n:no: ") == ("y"):
             data["classroom"][course_code]["student_list"].remove(st_number)
+    with open("save_information.json", 'w') as outfile:
+        json.dump(data, outfile)
     pass
 
 
@@ -142,17 +149,31 @@ def edit_student():
     st_number = input("Please enter the student's number you want to edit with: ")
     st_firstname = input("Please enter the student first name: ")
     st_lastname = input("Please enter the student last name: ")
-    st_number = input("Please enter the student number: ")
-    studentx = {st_number: {
+    grade = input("Please enter the student grade: ")
+    gender = input("Please enter the student gender: ")
+    studentx = {
         "Student Firstname": st_firstname,
         "Student Lastname": st_lastname,
-    }}
+        "Grade": grade,
+        "Gender": gender,
+        "Assignment List": []
+    }
+
+    studenty = {
+        "Student Firstname": st_firstname,
+        "Student Lastname": st_lastname,
+        "Grade": grade,
+        "Gender": gender,
+    }
     with open("save_information.json", "r") as json_file:
         data = json.load(json_file)
         for value in data.values():
             for key in value.keys():
                 if key == st_number:
-                    data["student"][st_number].update(studentx)
+                    if input("Do you want to reset the Assignment of this student as well? 'y' for Yes and n for 'No'") == ("y"):
+                        data["student"][st_number].update(studentx)
+                    else:
+                        data["student"][st_number].update(studenty)
     with open("save_information.json", 'w') as outfile:
         json.dump(data, outfile) 
 
@@ -160,15 +181,27 @@ def edit_student():
 
 
 def update_student_mark():
-    inp_number = input("enter the student name")
-    course_code = input("enter the course code")
-    assignment_name = ("enter the assignment name")
-    grade = input("enter the grade")
-    for classroom in class_list:
-        if class_list[classroom]["student_list"][st_number] == inp_number:
-            class_list[classroom]["student_list"]["assigment_list"][
-                "assignment_name"] = grade
+    st_number = input("Please enter the student number: ")
+    with open("save_information.json", "r") as json_file:
+        data = json.load(json_file)
+        while True:
+            try:
+                st_mark = float(input("Please enter the student's mark: "))
+            except:
+              print("OOPs! Please enter a number\n")
+            data["student"][st_number]["Assignment List"].append(st_mark)
+            decide = input("Enter 'P' to stop\nPress SPACE to coutinue").upper()
+            if decide == "P":
+                break
+    with open("save_information.json", 'w') as outfile:
+        json.dump(data, outfile) 
 
+
+        
+
+
+
+    
 
 def main():
     global user
@@ -180,7 +213,8 @@ def main():
               "[3]-create student\n"
               "[4]-add student to classroom\n"
               "[5]-remove a student from a class\n"
-              "[6]-edit a student information\n")
+              "[6]-edit a student information\n"
+              "[7]-update a student's mark")
         user = int(input("Please enter a number from above\n-> "))
 
         if user == 0:
@@ -204,5 +238,7 @@ def main():
         if user == 6:
             edit_student()
 
+        if user == 7:
+            update_student_mark()
 
 main()
