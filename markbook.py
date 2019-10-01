@@ -181,7 +181,9 @@ def edit_student():
         for value in data.values():
             for key in value.keys():
                 if key == st_number:
-                    if input("Do you want to reset the Assignment of this student as well? 'Y' for Yes and 'N' for 'No'").upper() == ("Y"):
+                    if input(
+                        "Do you want to reset the Assignment of this student as well? 'Y' for Yes and 'N' for 'No'"
+                            ).upper() == ("Y"):
                         data["student"][st_number].update(studentx)
                     else:
                         data["student"][st_number].update(studenty)
