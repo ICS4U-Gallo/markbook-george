@@ -5,6 +5,7 @@ Group members: Figo, Johnson
 from typing import Dict
 import json
 
+
 def student_info_create():
     st_firstname = input("Please enter the student first name: ")
     st_lastname = input("Please enter the student last name: ")
@@ -37,7 +38,6 @@ def write_to_student(st_number, new_student: dict):
 
 def create_assignment() -> Dict:
     """Creates an assignment represented as a dictionary
-    
     Args:
         name: the name of the assignment.
         due: the due date for the assignment.
@@ -108,8 +108,7 @@ def calculate_average_mark():
             ave += marks
         ave = ave/len(data["student"][st_number]["Assignment mark List"])
     print(
-        "The Student with the Student Code: "
-        + str(st_number) +"\n"
+        "The Student with the Student Code: " + str(st_number) + "\n"
         "Has a average mark with: " + str(ave)
     )
 
@@ -188,7 +187,7 @@ def edit_student():
                     else:
                         data["student"][st_number].update(studenty)
     with open("save_information.json", 'w') as outfile:
-        json.dump(data, outfile) 
+        json.dump(data, outfile)
 
     pass
 
@@ -201,13 +200,14 @@ def update_student_mark():
             try:
                 st_mark = float(input("Please enter the student's mark: "))
             except:
-              print("OOPs! Please enter a number\n")
+                print("OOPs! Please enter a number\n")
             data["student"][st_number]["Assignment Mark List"].append(st_mark)
             decide = input("Enter 'P' to stop\nPress SPACE to coutinue").upper()
             if decide == "P":
                 break
     with open("save_information.json", 'w') as outfile:
-        json.dump(data, outfile) 
+        json.dump(data, outfile)
+
 
 def reset_everything():
     decide = input(
@@ -224,8 +224,9 @@ def reset_everything():
                 "assignment": {}
             }
     with open("save_information.json", 'w') as outfile:
-        json.dump(data, outfile) 
+        json.dump(data, outfile)
     print("\nSuccessful Reset!\n")
+
 
 def view_student():
     st_number = input(
@@ -235,23 +236,22 @@ def view_student():
     with open("save_information.json", "r") as json_file:
         data = json.load(json_file)
     if st_number == "ALL":
-        for k,value in data.items():
+        for k, value in data.items():
             if k == "student":
                 for key, more_value in value.items():
                     print(
                         "\nStudent Number: " + key
                     )
                     for more_key, another_value in more_value.items():
-                      print(str(more_key) + ": " + str(another_value))
+                        print(str(more_key) + ": " + str(another_value))
     else:
         for kk, first_v in data.items():
             for first_k, second_v in first_v.items():
                 if first_k == st_number and kk == "student":
-                    print(
-                    "\nStudent Number: " + first_k
-                    )
+                    print("\nStudent Number: " + first_k)
                     for second_k, third_v in second_v.items():
                         print(str(second_k) + ": " + str(third_v))
+
 
 def view_classroom():
     course_code = input(
@@ -290,9 +290,7 @@ def view_classroom():
         for kk, first_v in data.items():
             for first_k, second_v in first_v.items():
                 if first_k == course_code and kk == "classroom":
-                    print(
-                    "\nCourse Code: " + first_k
-                )
+                    print("\nCourse Code: " + first_k)
                     for second_k, third_v in second_v.items():
                         if second_k != "Assignment List" and second_k != "Student List":
                             print(str(second_k) + ": " + str(third_v))
@@ -312,6 +310,7 @@ def view_classroom():
                             for kok, vov in third_v.items():
                                 print(str(kok) + ": " + str(vov))
                             print("\n")
+
 
 def view_assignment():
     course_code = input(
@@ -333,9 +332,7 @@ def view_assignment():
         for kk, first_v in data.items():
             for first_k, second_v in first_v.items():
                 if first_k == course_code and kk == "assignment":
-                    print(
-                    "\nCourse Code: " + first_k
-                )
+                    print("\nCourse Code: " + first_k)
                     for second_k, third_v in second_v.items():
                         print(str(second_k) + ": " + str(third_v))
 
@@ -389,7 +386,6 @@ def main():
                 create_assignment()
             if auser == 2:
                 view_assignment()
-        
         if user == 3:
             print(
                 "\n[1]-Create a Student\n"
