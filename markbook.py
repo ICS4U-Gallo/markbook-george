@@ -139,7 +139,6 @@ def write_to_course_studentlist(reg_student_id, course_code):
         json.dump(data, outfile)
 
 
-
 def remove_student_from_classroom():
     st_number = input("Please enter the student's code you want to delete: ")
     course_code = input("Please enter the course code that you want to remove the student from: ")
