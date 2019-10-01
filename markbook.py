@@ -64,7 +64,7 @@ def write_to_assignment(course_code, new_assignment: dict):
         for value in data.values():
             for key in value.keys():
                 if key == course_code:
-                    try: data["classroom"][course_code]["Assignment Mark List"] = new_assignment
+                    try: data["classroom"][course_code]["Assignment List"] = new_assignment
                     except:
                         print("OPPS! Looks like you enter something wrong!")
                         break
@@ -74,10 +74,10 @@ def write_to_assignment(course_code, new_assignment: dict):
 
 
 def create_classroom():
-    course_code = input("enter coursecode: ")
-    course_name = input("enter course name: ")
-    period = int(input("enter period: "))
-    teacher = input("enter teacher: ")
+    course_code = input("Please enter coursecode: ")
+    course_name = input("Please enter course name: ")
+    period = int(input("Please enter period: "))
+    teacher = input("Please enter teacher: ")
     """Creates a classroom dictionary"""
     if input("Are you sure? enter 'Y' for YES and 'N' for NO: ").upper() == "Y":
         write_to_classroom(course_code, {
@@ -115,8 +115,8 @@ def calculate_average_mark():
 
 
 def add_student_to_classroom():
-    student_number = input("enter student number: ")
-    course_code = input("enter the course code: ")
+    student_number = input("Please enter student number: ")
+    course_code = input("Please enter the course code: ")
     if input("Are you sure? enter 'Y' for YES and 'N' for NO: ").upper() == "Y":
         write_to_course_studentlist(student_number, course_code)
         pass
